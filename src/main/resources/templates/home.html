@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" data-theme="dark">
+<head>
+    <title>ShopEase - Home</title>
+    <script>(function(){const t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t);})();</script>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<section class="hero">
+    <div class="hero-layout">
+        <div class="hero-content">
+            <div class="hero-eyebrow">✦ New arrivals every week</div>
+            <h1>Shop smarter,<br>live <span>better</span></h1>
+            <p>Discover products across electronics, fashion, accessories and more — all in one place.</p>
+            <div class="hero-actions">
+                <a href="/shop" class="btn-primary">Browse Products</a>
+                <a href="/register" class="btn-secondary">Join for free</a>
+            </div>
+            <div class="hero-stats">
+                <div>
+                    <div class="hero-stat-num">50+</div>
+                    <div class="hero-stat-label">Products</div>
+                </div>
+                <div>
+                    <div class="hero-stat-num">9</div>
+                    <div class="hero-stat-label">Categories</div>
+                </div>
+                <div>
+                    <div class="hero-stat-num">Fast</div>
+                    <div class="hero-stat-label">Delivery</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-illustration">
+            <svg viewBox="0 0 480 420" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+                <defs>
+                    <linearGradient id="cardGrad1" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0%" stop-color="#1C2538"/><stop offset="100%" stop-color="#243047"/>
+                    </linearGradient>
+                    <linearGradient id="cardGrad2" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0%" stop-color="#243047"/><stop offset="100%" stop-color="#2A3550"/>
+                    </linearGradient>
+                    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0%" stop-color="#4F8EF7"/><stop offset="100%" stop-color="#7AAEFF"/>
+                    </linearGradient>
+                    <linearGradient id="glowGrad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#4F8EF7" stop-opacity="0.15"/>
+                        <stop offset="100%" stop-color="#4F8EF7" stop-opacity="0"/>
+                    </linearGradient>
+                    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+                        <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000" flood-opacity="0.35"/>
+                    </filter>
+                </defs>
+                <ellipse cx="240" cy="210" rx="200" ry="160" fill="url(#glowGrad)" opacity="0.5"/>
+                <circle cx="40" cy="60" r="4" fill="#4F8EF7" opacity="0.3"/>
+                <circle cx="440" cy="80" r="3" fill="#4F8EF7" opacity="0.25"/>
+                <circle cx="420" cy="340" r="5" fill="#4F8EF7" opacity="0.2"/>
+                <circle cx="60" cy="360" r="3" fill="#7AAEFF" opacity="0.25"/>
+                <circle cx="200" cy="30" r="2.5" fill="#4F8EF7" opacity="0.3"/>
+                <circle cx="380" cy="160" r="2" fill="#7AAEFF" opacity="0.35"/>
+                <!-- Main card -->
+                <g transform="translate(30, 60)" filter="url(#softShadow)">
+                    <rect width="200" height="240" rx="16" fill="url(#cardGrad1)" stroke="#2A3550" stroke-width="1"/>
+                    <rect x="0" y="0" width="200" height="140" rx="16" fill="#243047"/>
+                    <rect x="0" y="124" width="200" height="16" fill="#243047"/>
+                    <ellipse cx="100" cy="75" rx="45" ry="38" fill="none" stroke="#4F8EF7" stroke-width="8" stroke-linecap="round"/>
+                    <rect x="55" y="60" width="14" height="28" rx="7" fill="#4F8EF7"/>
+                    <rect x="131" y="60" width="14" height="28" rx="7" fill="#4F8EF7"/>
+                    <path d="M70 68 Q100 30 130 68" fill="none" stroke="#7AAEFF" stroke-width="5" stroke-linecap="round"/>
+                    <rect x="16" y="154" width="110" height="9" rx="4" fill="#4F8EF7" opacity="0.9"/>
+                    <rect x="16" y="170" width="80" height="7" rx="3" fill="#556078"/>
+                    <rect x="16" y="192" width="60" height="20" rx="8" fill="#4F8EF7"/>
+                    <rect x="140" y="188" width="48" height="24" rx="8" fill="url(#accentGrad)" opacity="0.15"/>
+                    <rect x="144" y="194" width="36" height="8" rx="3" fill="#4F8EF7" opacity="0.7"/>
+                    <text x="16" y="228" font-size="10" fill="#F5A623">★★★★★</text>
+                    <rect x="80" y="219" width="30" height="7" rx="3" fill="#2A3550"/>
+                </g>
+                <!-- Watch card -->
+                <g transform="translate(248, 40)" filter="url(#softShadow)">
+                    <rect width="160" height="190" rx="14" fill="url(#cardGrad2)" stroke="#354264" stroke-width="1"/>
+                    <rect x="0" y="0" width="160" height="110" rx="14" fill="#1C2538"/>
+                    <rect x="0" y="96" width="160" height="14" fill="#1C2538"/>
+                    <rect x="72" y="8" width="16" height="12" rx="4" fill="#354264"/>
+                    <rect x="72" y="90" width="16" height="12" rx="4" fill="#354264"/>
+                    <rect x="50" y="25" width="60" height="70" rx="18" fill="#243047" stroke="#4F8EF7" stroke-width="2"/>
+                    <circle cx="80" cy="60" r="22" fill="#1C2538" stroke="#2A3550" stroke-width="1.5"/>
+                    <line x1="80" y1="60" x2="80" y2="44" stroke="#4F8EF7" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="80" y1="60" x2="91" y2="66" stroke="#7AAEFF" stroke-width="1.5" stroke-linecap="round"/>
+                    <circle cx="80" cy="60" r="2.5" fill="#4F8EF7"/>
+                    <rect x="12" y="118" width="90" height="8" rx="3" fill="#4F8EF7" opacity="0.85"/>
+                    <rect x="12" y="132" width="60" height="6" rx="2" fill="#556078"/>
+                    <rect x="12" y="152" width="50" height="18" rx="7" fill="#4F8EF7"/>
+                    <text x="12" y="180" font-size="9" fill="#F5A623">★★★★</text>
+                </g>
+                <!-- Shoe card -->
+                <g transform="translate(310, 248)" filter="url(#softShadow)">
+                    <rect width="140" height="110" rx="12" fill="url(#cardGrad1)" stroke="#2A3550" stroke-width="1"/>
+                    <rect x="0" y="0" width="140" height="65" rx="12" fill="#1C2538"/>
+                    <rect x="0" y="53" width="140" height="12" fill="#1C2538"/>
+                    <path d="M25 45 Q35 20 65 22 Q85 22 95 30 Q110 38 115 45 Z" fill="#354264"/>
+                    <path d="M28 45 Q38 24 65 25 Q82 25 92 32 Q106 39 112 45 Z" fill="#4F8EF7" opacity="0.6"/>
+                    <path d="M25 45 L115 45 Q118 48 115 50 L25 50 Q22 48 25 45 Z" fill="#243047"/>
+                    <path d="M55 25 Q60 18 70 22" fill="none" stroke="#7AAEFF" stroke-width="2" stroke-linecap="round"/>
+                    <rect x="12" y="70" width="75" height="7" rx="3" fill="#4F8EF7" opacity="0.85"/>
+                    <rect x="12" y="83" width="50" height="6" rx="2" fill="#556078"/>
+                    <rect x="100" y="78" width="30" height="16" rx="6" fill="#4F8EF7" opacity="0.2"/>
+                    <rect x="104" y="82" width="22" height="7" rx="3" fill="#4F8EF7" opacity="0.8"/>
+                </g>
+                <!-- Bag -->
+                <g transform="translate(20, 270)">
+                    <rect width="64" height="70" rx="12" fill="url(#cardGrad2)" stroke="#354264" stroke-width="1" filter="url(#softShadow)"/>
+                    <path d="M20 26 Q20 16 32 16 Q44 16 44 26" fill="none" stroke="#4F8EF7" stroke-width="2.5" stroke-linecap="round"/>
+                    <rect x="14" y="26" width="36" height="28" rx="6" fill="#4F8EF7" opacity="0.15" stroke="#4F8EF7" stroke-width="1"/>
+                    <line x1="26" y1="36" x2="38" y2="36" stroke="#4F8EF7" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="32" y1="30" x2="32" y2="42" stroke="#4F8EF7" stroke-width="2" stroke-linecap="round"/>
+                </g>
+                <!-- Notification -->
+                <g transform="translate(390, 230)">
+                    <rect width="72" height="50" rx="10" fill="url(#cardGrad1)" stroke="#2A3550" stroke-width="1" filter="url(#softShadow)"/>
+                    <circle cx="16" cy="25" r="8" fill="#4F8EF7" opacity="0.2"/>
+                    <circle cx="16" cy="25" r="4" fill="#4F8EF7"/>
+                    <rect x="28" y="18" width="32" height="5" rx="2" fill="#4F8EF7" opacity="0.7"/>
+                    <rect x="28" y="27" width="22" height="4" rx="2" fill="#556078"/>
+                </g>
+                <!-- Sale badge -->
+                <g transform="translate(220, 250)">
+                    <circle cx="28" cy="28" r="28" fill="#4F8EF7" opacity="0.12" stroke="#4F8EF7" stroke-width="1" stroke-dasharray="4 3" filter="url(#softShadow)"/>
+                    <text x="28" y="24" text-anchor="middle" font-size="9" font-weight="700" fill="#4F8EF7">SALE</text>
+                    <text x="28" y="36" text-anchor="middle" font-size="11" font-weight="800" fill="#4F8EF7">20%</text>
+                </g>
+                <line x1="230" y1="190" x2="248" y2="180" stroke="#4F8EF7" stroke-width="0.5" stroke-dasharray="4 4" opacity="0.3"/>
+                <line x1="230" y1="240" x2="310" y2="280" stroke="#4F8EF7" stroke-width="0.5" stroke-dasharray="4 4" opacity="0.25"/>
+            </svg>
+        </div>
+    </div>
+</section>
+
+<!-- Trust bar -->
+<div class="trust-bar">
+    <div class="trust-item">
+        <span class="trust-icon">🚚</span>
+        <div>
+            <div class="trust-title">Free Delivery</div>
+            <div class="trust-sub">On orders above ₹999</div>
+        </div>
+    </div>
+    <div class="trust-divider"></div>
+    <div class="trust-item">
+        <span class="trust-icon">🔄</span>
+        <div>
+            <div class="trust-title">Easy Returns</div>
+            <div class="trust-sub">7-day return policy</div>
+        </div>
+    </div>
+    <div class="trust-divider"></div>
+    <div class="trust-item">
+        <span class="trust-icon">🔒</span>
+        <div>
+            <div class="trust-title">Secure Payments</div>
+            <div class="trust-sub">100% safe checkout</div>
+        </div>
+    </div>
+    <div class="trust-divider"></div>
+    <div class="trust-item">
+        <span class="trust-icon">⭐</span>
+        <div>
+            <div class="trust-title">Top Quality</div>
+            <div class="trust-sub">Curated products only</div>
+        </div>
+    </div>
+</div>
+
+<!-- Categories -->
+<section class="section">
+    <div class="section-header">
+        <div>
+            <div class="section-title">Shop by Category</div>
+            <div class="section-sub">Find exactly what you're looking for</div>
+        </div>
+        <a href="/shop" class="btn-secondary" style="padding:8px 18px;font-size:0.82rem">View all →</a>
+    </div>
+    <div class="category-cards-grid">
+        <a th:each="cat : ${categories}"
+           th:href="@{/shop(categoryId=${cat.id})}"
+           class="category-big-card">
+            <span class="cat-icon" th:switch="${cat.name}">
+                <span th:case="'Electronics'">📱</span>
+                <span th:case="'Clothing'">👕</span>
+                <span th:case="'Accessories'">👜</span>
+                <span th:case="'Home &amp; Kitchen'">🏠</span>
+                <span th:case="'Sports'">🏋️</span>
+                <span th:case="'Beauty'">✨</span>
+                <span th:case="*">🛍️</span>
+            </span>
+            <span class="cat-name" th:text="${cat.name}">Category</span>
+            <span class="cat-arrow">→</span>
+        </a>
+    </div>
+</section>
+
+<!-- Featured Products -->
+<section class="section" style="padding-top:0">
+    <div class="section-header">
+        <div>
+            <div class="section-title">Featured Products</div>
+            <div class="section-sub">Handpicked just for you</div>
+        </div>
+        <a href="/shop" class="btn-secondary" style="padding:8px 18px;font-size:0.82rem">See all →</a>
+    </div>
+    <div class="product-grid">
+        <div th:each="product, i : ${featuredProducts}" th:if="${i.index < 8}" class="product-card">
+            <div class="product-card-img-wrap">
+                <img class="product-card-img"
+                     th:src="${product.imageUrl}"
+                     th:alt="${product.name}"
+                     loading="lazy"
+                     decoding="async"
+                     onerror="this.style.display='none'">
+                <span class="product-card-badge" th:text="${product.category.name}">Category</span>
+            </div>
+            <div class="product-info">
+                <h3 th:text="${product.name}">Product Name</h3>
+                <div class="product-bottom">
+                    <span class="price" th:text="'₹' + ${#numbers.formatInteger(product.price, 1, 'COMMA')}">₹0</span>
+                    <a th:href="@{/product/{id}(id=${product.id})}" class="btn-view">View →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Promo Banner -->
+<section class="promo-banner">
+    <div class="promo-content">
+        <div class="promo-text">
+            <h2>Ready to start shopping?</h2>
+            <p>Browse our full catalog of 30+ curated products</p>
+        </div>
+        <a href="/shop" class="btn-primary">Shop Now</a>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="footer-inner">
+        <div class="footer-brand">Shop<span>Ease</span></div>
+        <div class="footer-links">
+            <a href="/home">Home</a>
+            <a href="/shop">Shop</a>
+            <a href="/orders">Orders</a>
+            <a href="/profile">Profile</a>
+        </div>
+        <div class="footer-copy">© 2026 ShopEase. All rights reserved.</div>
+    </div>
+</footer>
+
+<script>
+    function toggleTheme() {
+        const html = document.documentElement;
+        const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+        const icon = document.getElementById('theme-icon');
+        if (icon) icon.textContent = next === 'dark' ? '☀️' : '🌙';
+    }
+    const icon = document.getElementById('theme-icon');
+    const current = localStorage.getItem('theme') || 'dark';
+    if (icon) icon.textContent = current === 'dark' ? '☀️' : '🌙';
+</script>
+</body>
+</html>

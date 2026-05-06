@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" data-theme="dark">
+<head>
+    <title>Profile - ShopEase</title>
+    <script>(function(){const t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t);})();</script>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="profile-wrapper">
+
+    <div class="profile-left">
+        <div class="avatar-card">
+            <div class="avatar-circle"
+                 th:text="${#strings.toUpperCase(#strings.substring(user.username, 0, 1))}">U</div>
+            <h2 th:text="${user.username}">Username</h2>
+            <p th:text="${user.email}">email@example.com</p>
+            <span class="role-badge" th:text="${user.role}">USER</span>
+        </div>
+
+        <div class="profile-card">
+            <h3>Edit Profile</h3>
+            <p th:if="${success}" class="msg-success" th:text="${success}"></p>
+            <form th:action="@{/profile/update}" method="post" class="profile-form">
+                <label>Username</label>
+                <input type="text" name="username" th:value="${user.username}" required>
+                <label>Email</label>
+                <input type="email" name="email" th:value="${user.email}" required>
+                <button type="submit" class="btn-primary">Save Changes</button>
+            </form>
+        </div>
+
+        <div class="profile-card">
+            <h3>Change Password</h3>
+            <p th:if="${pwError}" class="msg-error" th:text="${pwError}"></p>
+            <p th:if="${pwSuccess}" class="msg-success" th:text="${pwSuccess}"></p>
+            <form th:action="@{/profile/changePassword}" method="post" class="profile-form">
+                <label>Current Password</label>
+                <input type="password" name="currentPassword" required>
+                <label>New Password</label>
+                <input type="password" name="newPassword" required>
+                <button type="submit" class="btn-primary">Update Password</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="profile-right">
+        <h3 class="page-title" style="font-size:1.3rem;margin-bottom:20px">Order History</h3>
+
+        <div th:if="${orders.isEmpty()}" class="empty-cart">
+            <div class="empty-cart-icon">📦</div>
+            <p>No orders yet.</p>
+            <a href="/shop" class="btn-primary">Start Shopping</a>
+        </div>
+
+        <div th:each="order : ${orders}" class="order-card">
+            <div class="order-header">
+                <span class="order-id" th:text="'Order #' + ${order.id}"></span>
+                <span class="order-status" th:text="${order.status}"></span>
+                <span class="order-date" th:text="${#temporals.format(order.placedAt, 'dd MMM yyyy')}"></span>
+            </div>
+            <div class="order-items-preview">
+                <span th:each="item, i : ${order.items}" th:if="${i.index < 2}">
+                    <span th:text="${item.product.name}"></span>
+                    <span th:if="${!i.last and i.index < 1}">, </span>
+                </span>
+                <span th:if="${order.items.size() > 2}"
+                      th:text="' +' + (${order.items.size()} - 2) + ' more'"></span>
+            </div>
+            <div class="order-footer">
+                <span class="order-total" th:text="'₹' + ${#numbers.formatInteger(order.totalAmount, 1, 'COMMA')}"></span>
+                <a th:href="@{/orders/{id}(id=${order.id})}" class="btn-secondary">Details</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<footer class="footer">
+    <div class="footer-inner">
+        <div class="footer-brand">Shop<span>Ease</span></div>
+        <div class="footer-links">
+            <a href="/home">Home</a>
+            <a href="/shop">Shop</a>
+            <a href="/orders">Orders</a>
+            <a href="/profile">Profile</a>
+        </div>
+        <div class="footer-copy">© 2026 ShopEase. All rights reserved.</div>
+    </div>
+</footer>
+
+<script>
+    function toggleTheme() {
+        const html = document.documentElement;
+        const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+        const icon = document.getElementById('theme-icon');
+        if (icon) icon.textContent = next === 'dark' ? '☀️' : '🌙';
+    }
+    const icon = document.getElementById('theme-icon');
+    const current = localStorage.getItem('theme') || 'dark';
+    if (icon) icon.textContent = current === 'dark' ? '☀️' : '🌙';
+</script>
+</body>
+</html>

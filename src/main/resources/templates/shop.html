@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" data-theme="dark">
+<head>
+    <title>Shop - ShopEase</title>
+    <script>(function(){const t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t);})();</script>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="page-wrapper">
+    <aside class="sidebar">
+        <h3>Categories</h3>
+        <ul class="category-list">
+            <li><a href="/shop" th:classappend="${selectedCategory == null} ? 'active' : ''">All</a></li>
+            <li th:each="cat : ${categories}">
+                <a th:href="@{/shop(categoryId=${cat.id})}"
+                   th:text="${cat.name}"
+                   th:classappend="${selectedCategory == cat.id} ? 'active' : ''">
+                    Category
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <main class="main-content">
+        <div class="shop-header">
+            <h2>All Products</h2>
+            <form action="/shop" method="get" class="search-form">
+                <input type="text" name="keyword" placeholder="Search products..." th:value="${keyword}">
+                <button type="submit" class="btn-primary">Search</button>
+            </form>
+        </div>
+
+        <div class="product-grid">
+            <div th:each="product : ${products}" class="product-card">
+                <div class="product-card-img-wrap">
+                    <img class="product-card-img"
+                         th:src="${product.imageUrl}"
+                         th:alt="${product.name}"
+                         loading="lazy"
+                         decoding="async"
+                         onerror="this.style.display='none'">
+                    <span class="product-card-badge" th:text="${product.category.name}">Category</span>
+                </div>
+                <div class="product-info">
+                    <h3 th:text="${product.name}">Product</h3>
+                    <div class="product-bottom">
+                        <span class="price" th:text="'₹' + ${#numbers.formatInteger(product.price, 1, 'COMMA')}">₹0</span>
+                        <a th:href="@{/product/{id}(id=${product.id})}" class="btn-view">View →</a>
+                    </div>
+                </div>
+            </div>
+            <p th:if="${#lists.isEmpty(products)}" class="empty-msg">No products found.</p>
+        </div>
+    </main>
+</div>
+
+<footer class="footer">
+    <div class="footer-inner">
+        <div class="footer-brand">Shop<span>Ease</span></div>
+        <div class="footer-links">
+            <a href="/home">Home</a>
+            <a href="/shop">Shop</a>
+            <a href="/orders">Orders</a>
+            <a href="/profile">Profile</a>
+        </div>
+        <div class="footer-copy">© 2026 ShopEase. All rights reserved.</div>
+    </div>
+</footer>
+
+<script>
+    function toggleTheme() {
+        const html = document.documentElement;
+        const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+        const icon = document.getElementById('theme-icon');
+        if (icon) icon.textContent = next === 'dark' ? '☀️' : '🌙';
+    }
+    const icon = document.getElementById('theme-icon');
+    const current = localStorage.getItem('theme') || 'dark';
+    if (icon) icon.textContent = current === 'dark' ? '☀️' : '🌙';
+</script>
+</body>
+</html>

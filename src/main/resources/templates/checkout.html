@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" data-theme="dark">
+<head>
+    <title>Checkout - ShopEase</title>
+    <script>(function(){const t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t);})();</script>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="checkout-wrapper">
+    <h2>Checkout</h2>
+    <form action="/placeOrder" method="post" class="checkout-form">
+
+        <div class="checkout-label">Delivery Address</div>
+        <textarea name="address" rows="4"
+                  placeholder="Enter your full delivery address..."
+                  required></textarea>
+
+        <div class="order-summary">
+            <h3>Order Summary</h3>
+            <div th:each="item : ${cart.items}" class="summary-row">
+                <span th:text="${item.product.name} + ' x' + ${item.quantity}">Item</span>
+                <span th:text="'₹' + ${#numbers.formatInteger(item.product.price * item.quantity, 1, 'COMMA')}">₹0</span>
+            </div>
+            <div class="summary-total">
+                <span>Total</span>
+                <span th:text="'₹' + ${#numbers.formatInteger(cart.total, 1, 'COMMA')}">₹0</span>
+            </div>
+        </div>
+
+        <div class="payment-section">
+            <h3>Payment Method</h3>
+            <div class="payment-options">
+                <label class="payment-option selected">
+                    <input type="radio" name="payment" value="COD" checked>
+                    <span>Cash on Delivery</span>
+                </label>
+                <label class="payment-option disabled">
+                    <input type="radio" name="payment" value="ONLINE" disabled>
+                    <span>Online Payment (Coming Soon)</span>
+                </label>
+            </div>
+        </div>
+
+        <button type="submit" class="btn-primary btn-large">Place Order</button>
+    </form>
+</div>
+
+<footer class="footer">
+    <div class="footer-inner">
+        <div class="footer-brand">Shop<span>Ease</span></div>
+        <div class="footer-links">
+            <a href="/home">Home</a>
+            <a href="/shop">Shop</a>
+            <a href="/orders">Orders</a>
+            <a href="/profile">Profile</a>
+        </div>
+        <div class="footer-copy">© 2026 ShopEase. All rights reserved.</div>
+    </div>
+</footer>
+
+<script>
+    function toggleTheme() {
+        const html = document.documentElement;
+        const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+        const icon = document.getElementById('theme-icon');
+        if (icon) icon.textContent = next === 'dark' ? '☀️' : '🌙';
+    }
+    const icon = document.getElementById('theme-icon');
+    const current = localStorage.getItem('theme') || 'dark';
+    if (icon) icon.textContent = current === 'dark' ? '☀️' : '🌙';
+</script>
+</body>
+</html>
