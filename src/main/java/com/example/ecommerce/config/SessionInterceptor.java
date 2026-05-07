@@ -11,7 +11,8 @@ import java.util.List;
 public class SessionInterceptor implements HandlerInterceptor {
 
     private static final List<String> PUBLIC_ROUTES = List.of(
-            "/", "/login", "/register", "/saveUser", "/shop", "/products", "/static", "/css", "/images"
+            "/", "/login", "/register", "/saveUser", "/shop", "/products",
+            "/static", "/css", "/images", "/admin/login"
     );
 
     @Override
@@ -24,7 +25,11 @@ public class SessionInterceptor implements HandlerInterceptor {
         if (isPublic) return true;
 
         if (request.getSession().getAttribute("user") == null) {
-            response.sendRedirect("/");
+            if (path.startsWith("/admin")) {
+                response.sendRedirect("/admin/login");
+            } else {
+                response.sendRedirect("/");
+            }
             return false;
         }
         return true;

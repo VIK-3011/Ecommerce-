@@ -44,6 +44,16 @@ public class AuthController {
         model.addAttribute("error", "Invalid email or password");
         return "login";
     }
+    @GetMapping("/setup-admin")
+    public String setupAdmin() {
+        User admin = new User();
+        admin.setUsername("Admin");
+        admin.setEmail("your@email.com");      // your email
+        admin.setPassword(userService.hashPassword("yourStrongPassword123"));
+        admin.setRole("ADMIN");
+        userService.updateUser(admin);
+        return "redirect:/admin/login";
+    }
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {

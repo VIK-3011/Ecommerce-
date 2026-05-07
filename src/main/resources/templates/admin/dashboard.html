@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" data-theme="dark">
+<head>
+    <title>Admin Dashboard — ShopEase</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+    <style>
+        :root[data-theme="dark"] {
+            --bg: #080C14; --bg2: #0F1621; --surface: #1C2538;
+            --border: #2A3550; --accent: #4F8EF7; --red: #F05454;
+            --green: #34D399; --amber: #FBBF24;
+            --text: #E8ECF4; --text2: #8A97B0; --text3: #556078;
+        }
+        *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+        .topbar {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 16px 40px; background: var(--bg2); border-bottom: 1px solid var(--border);
+            position: sticky; top: 0; z-index: 100;
+        }
+        .brand { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 800; color: var(--text); text-decoration: none; }
+        .brand span { color: var(--accent); }
+        .topbar-right { display: flex; align-items: center; gap: 16px; }
+        .admin-name { font-size: 0.85rem; color: var(--text2); }
+        .btn { padding: 8px 18px; border-radius: 8px; font-size: 0.85rem; font-family: 'DM Sans', sans-serif; cursor: pointer; text-decoration: none; border: none; transition: all 0.2s; }
+        .btn-primary { background: var(--accent); color: white; }
+        .btn-primary:hover { opacity: 0.9; }
+        .btn-danger { background: rgba(240,84,84,0.15); color: var(--red); border: 1px solid rgba(240,84,84,0.3); }
+        .btn-danger:hover { background: rgba(240,84,84,0.25); }
+        .btn-sm { padding: 5px 12px; font-size: 0.8rem; }
+        .btn-edit { background: rgba(79,142,247,0.12); color: var(--accent); border: 1px solid rgba(79,142,247,0.25); }
+        .btn-edit:hover { background: rgba(79,142,247,0.22); }
+        .btn-logout { background: var(--surface); color: var(--text2); border: 1px solid var(--border); }
+
+        .main { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
+        .page-header { margin-bottom: 32px; }
+        .page-header h1 { font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; }
+        .page-header p { color: var(--text2); font-size: 0.9rem; margin-top: 4px; }
+
+        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 40px; }
+        .stat-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; padding: 24px; }
+        .stat-value { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; color: var(--accent); }
+        .stat-label { font-size: 0.82rem; color: var(--text2); margin-top: 4px; }
+
+        .section { margin-bottom: 48px; }
+        .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+        .section-header h2 { font-family: 'Syne', sans-serif; font-size: 1.15rem; font-weight: 700; }
+
+        table { width: 100%; border-collapse: collapse; }
+        .table-wrap { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+        th { padding: 12px 16px; text-align: left; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text3); border-bottom: 1px solid var(--border); background: var(--surface); }
+        td { padding: 14px 16px; font-size: 0.9rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background: rgba(255,255,255,0.02); }
+        .product-img { width: 44px; height: 44px; object-fit: cover; border-radius: 8px; background: var(--surface); }
+        .no-img { width: 44px; height: 44px; border-radius: 8px; background: var(--surface); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+        .price-cell { font-weight: 500; color: var(--green); }
+        .stock-low { color: var(--red); }
+        .actions { display: flex; gap: 8px; }
+        .empty { padding: 32px; text-align: center; color: var(--text3); font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+<div class="topbar">
+    <a href="/admin/dashboard" class="brand">Shop<span>Ease</span> <span style="font-size:0.7rem;color:var(--text3);font-weight:400;margin-left:4px">Admin</span></a>
+    <div class="topbar-right">
+        <span class="admin-name" th:text="'Hello, ' + ${session.user.username}">Hello, Admin</span>
+        <a href="/" class="btn btn-sm btn-edit">View Store</a>
+        <a href="/admin/logout" class="btn btn-sm btn-logout">Logout</a>
+    </div>
+</div>
+
+<div class="main">
+    <div class="page-header">
+        <h1>Dashboard</h1>
+        <p>Manage your store's products and categories</p>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats">
+        <div class="stat-card">
+            <div class="stat-value" th:text="${productCount}">0</div>
+            <div class="stat-label">Total Products</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" th:text="${categoryCount}">0</div>
+            <div class="stat-label">Categories</div>
+        </div>
+    </div>
+
+    <!-- Products -->
+    <div class="section">
+        <div class="section-header">
+            <h2>Products</h2>
+            <a href="/admin/products/new" class="btn btn-primary">+ Add Product</a>
+        </div>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Stock</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:if="${#lists.isEmpty(products)}">
+                        <td colspan="6" class="empty">No products yet — add your first one!</td>
+                    </tr>
+                    <tr th:each="p : ${products}">
+                        <td>
+                            <img th:if="${p.imageUrl != null and !p.imageUrl.isEmpty()}"
+                                 th:src="${p.imageUrl}" class="product-img" alt="">
+                            <div th:if="${p.imageUrl == null or p.imageUrl.isEmpty()}" class="no-img">📦</div>
+                        </td>
+                        <td th:text="${p.name}">Product</td>
+                        <td th:text="${p.category != null ? p.category.name : '—'}">Category</td>
+                        <td class="price-cell" th:text="'₹' + ${p.price}">₹0</td>
+                        <td th:class="${p.stock < 5 ? 'stock-low' : ''}" th:text="${p.stock}">0</td>
+                        <td>
+                            <div class="actions">
+                                <a th:href="@{/admin/products/edit/{id}(id=${p.id})}" class="btn btn-sm btn-edit">Edit</a>
+                                <a th:href="@{/admin/products/delete/{id}(id=${p.id})}"
+                                   class="btn btn-sm btn-danger"
+                                   onclick="return confirm('Delete this product?')">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Categories -->
+    <div class="section">
+        <div class="section-header">
+            <h2>Categories</h2>
+            <a href="/admin/categories/new" class="btn btn-primary">+ Add Category</a>
+        </div>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Products</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:if="${#lists.isEmpty(categories)}">
+                        <td colspan="3" class="empty">No categories yet — add one first!</td>
+                    </tr>
+                    <tr th:each="c : ${categories}">
+                        <td th:text="${c.name}">Category</td>
+                        <td th:text="${#lists.size(c.products)}">0</td>
+                        <td>
+                            <div class="actions">
+                                <a th:href="@{/admin/categories/edit/{id}(id=${c.id})}" class="btn btn-sm btn-edit">Edit</a>
+                                <a th:href="@{/admin/categories/delete/{id}(id=${c.id})}"
+                                   class="btn btn-sm btn-danger"
+                                   onclick="return confirm('Delete this category?')">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
